@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TodoResultItem from '../todo-result-item/todo-result-item.component';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -39,5 +40,16 @@ const TodoResultComponent = ({ todoList, onMoveUp, onMoveDown, onRemove }) => (
         </TableContainer>
     </div>
 );
+
+TodoResultComponent.defaultProps = {
+    todoList: []
+};
+
+TodoResultComponent.propTypes = {
+    todoList: PropTypes.array,
+    onMoveUp: PropTypes.func.isRequired,
+    onMoveDown: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired
+};
 
 export default TodoResultComponent;
