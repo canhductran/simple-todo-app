@@ -3,10 +3,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
 class TodoResultItemComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     _onMoveUp = () => {
         this.props.onMoveUp(this.props.todoIndex);
     }
