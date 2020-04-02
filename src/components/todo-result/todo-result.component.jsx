@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import './todo-result.scss';
 
-const TodoResultComponent = ({ todoList, onMoveUp, onMoveDown, onRemove }) => (
+const TodoResultComponent = ({ todoList }) => (
     <div className='todo-result'>
         <TableContainer >
             <Table className='todo-list' aria-label="simple table">
@@ -28,10 +28,7 @@ const TodoResultComponent = ({ todoList, onMoveUp, onMoveDown, onRemove }) => (
                             <TodoResultItem
                                 key={index}
                                 todoIndex={index}
-                                todo={todo}
-                                onMoveUp={onMoveUp}
-                                onMoveDown={onMoveDown}
-                                onRemove={onRemove}>
+                                todo={todo}>
                             </TodoResultItem>
                         ))
                     }

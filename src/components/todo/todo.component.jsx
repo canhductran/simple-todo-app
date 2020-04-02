@@ -1,16 +1,14 @@
 import React from 'react';
 import TodoInputComponent from '../todo-input/todo-input.component';
 import TodoResultComponent from '../todo-result/todo-result.component';
+import { connect } from 'react-redux';
+import { addTodo } from '../../redux/todo-list/todo-list.action';
 
 class TodoComponent extends React.Component {
     constructor(props) {
         super(props);
 
         this.inputRef = React.createRef();
-
-        this.state = {
-            todoList: []
-        }
     }
 
     addTodo = (event) => {
@@ -18,49 +16,7 @@ class TodoComponent extends React.Component {
 
         let newTodo = this.inputRef.current.value;
 
-        this.state.todoList.push(newTodo);
-        this.setState({
-            todoList: this.state.todoList
-        });
-    }
-
-    onMoveUp = todoIndex => {
-        if (todoIndex === 0) {
-            return;
-        }
-
-        let newTodoList = this.state.todoList;
-        let temp = newTodoList[todoIndex];
-        newTodoList[todoIndex] = newTodoList[todoIndex - 1];
-        newTodoList[todoIndex - 1] = temp;
-
-        this.setState({
-            todoList: newTodoList
-        })
-    }
-
-    onMoveDown = todoIndex => {
-        if (todoIndex === this.state.todoList.length - 1) {
-            return;
-        }
-
-        let newTodoList = this.state.todoList;
-        let temp = newTodoList[todoIndex];
-        newTodoList[todoIndex] = newTodoList[todoIndex + 1];
-        newTodoList[todoIndex + 1] = temp;
-
-        this.setState({
-            todoList: newTodoList
-        })
-    }
-
-    onRemove = todoIndex => {
-        let newTodoList = this.state.todoList;
-        newTodoList.splice(todoIndex, 1);
-
-        this.setState({
-            todoList: newTodoList
-        });
+        this.props.addTodo(newTodo);
     }
 
     render() {
@@ -68,14 +24,28 @@ class TodoComponent extends React.Component {
             <div>
                 <TodoInputComponent onSubmitTodo={this.addTodo} inputRef={this.inputRef}></TodoInputComponent>
                 <TodoResultComponent
-                    todoList={this.state.todoList}
-                    onMoveUp={this.onMoveUp}
-                    onMoveDown={this.onMoveDown}
-                    onRemove={this.onRemove}>
+                    todoList={this.props.todoList}
+                    onMoveUp={this.props.moveUpTodo}
+                    onMoveDown={this.props.moveDownTodo}
+                    onRemove={this.props.removeTodo}>
                 </TodoResultComponent>
             </div>
         );
     }
 }
 
-export default TodoComponent;
+const mapStateToProps = store => {
+    console.log(store);
+
+    return {
+        todoList: [...store.todoList.todoList]
+    };
+}
+
+const mapDispatchToProps = dispatch => (
+    {
+        addTodo: newTodo => dispatch(addTodo(newTodo))
+    }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoComponent);

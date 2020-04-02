@@ -1,18 +1,20 @@
 import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import { connect } from 'react-redux';
+import { removeTodo, moveUpTodo, moveDownTodo } from '../../redux/todo-list/todo-list.action';
 
 class TodoResultItemComponent extends React.Component {
     _onMoveUp = () => {
-        this.props.onMoveUp(this.props.todoIndex);
+        this.props.moveUpTodo(this.props.todoIndex);
     }
 
     _onMoveDown = () => {
-        this.props.onMoveDown(this.props.todoIndex);
+        this.props.moveDownTodo(this.props.todoIndex);
     }
 
     _onRemove = () => {
-        this.props.onRemove(this.props.todoIndex);
+        this.props.removeTodo(this.props.todoIndex);
     }
 
     render() {
@@ -29,4 +31,12 @@ class TodoResultItemComponent extends React.Component {
     }
 };
 
-export default TodoResultItemComponent;
+const mapDispatchToProps = dispatch => (
+    {
+        removeTodo: todoIndex => dispatch(removeTodo(todoIndex)),
+        moveUpTodo: todoIndex => dispatch(moveUpTodo(todoIndex)),
+        moveDownTodo: todoIndex => dispatch(moveDownTodo(todoIndex))
+    }
+);
+
+export default connect(null, mapDispatchToProps)(TodoResultItemComponent);
