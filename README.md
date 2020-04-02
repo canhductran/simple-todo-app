@@ -1,1 +1,1 @@
-Review React by making a simple todo app
+Exercise to revise React/Redux by making a simple todo app.
