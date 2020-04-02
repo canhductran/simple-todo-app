@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import './todo-result.scss';
+import { connect } from 'react-redux';
 
 const TodoResultComponent = ({ todoList }) => (
     <div className='todo-result'>
@@ -43,10 +44,15 @@ TodoResultComponent.defaultProps = {
 };
 
 TodoResultComponent.propTypes = {
-    todoList: PropTypes.array,
-    onMoveUp: PropTypes.func.isRequired,
-    onMoveDown: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired
+    todoList: PropTypes.array
 };
 
-export default TodoResultComponent;
+const mapStateToProps = store => {
+    console.log(store);
+
+    return {
+        todoList: [...store.todoList.todoList]
+    };
+}
+
+export default connect(mapStateToProps)(TodoResultComponent);

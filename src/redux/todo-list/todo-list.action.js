@@ -27,3 +27,9 @@ export const moveDownTodo = todoIndex => {
         payload: todoIndex
     }
 }
+
+export const clearTodoList = () => {
+    return {
+        type: TodoListActionTypes.CLEAR_TODO_LIST
+    }
+};

@@ -56,6 +56,11 @@ const todoListReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 todoList: newTodoList
             }
+        case TodoListActionTypes.CLEAR_TODO_LIST:
+            return {
+                ...state,
+                todoList: []
+            }
         default:
             return state;
     }
